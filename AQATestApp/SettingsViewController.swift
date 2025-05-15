@@ -40,13 +40,13 @@ class SettingsViewController: UIViewController {
 
     private func setupUI() {
         view.addSubview(modeSegmentedControl)
-        
+
         let switchStackView = UIStackView(arrangedSubviews: [activateModeLabel, activateModeSwitch])
         switchStackView.axis = .horizontal
         switchStackView.spacing = 8
         switchStackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(switchStackView)
-        
+
         view.addSubview(backButton)
 
         NSLayoutConstraint.activate([
@@ -72,14 +72,12 @@ class SettingsViewController: UIViewController {
     @objc private func navigateBack() {
         navigationController?.popViewController(animated: true)
     }
-    
+
     @objc private func switchValueChanged(_ sender: UISwitch) {
         print("Activate mode switch is now: \(sender.isOn ? "ON" : "OFF")")
-        // Logic for switch state change
     }
 
     @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         print("Selected segment index: \(sender.selectedSegmentIndex)")
-        // Logic for segmented control change
     }
 }

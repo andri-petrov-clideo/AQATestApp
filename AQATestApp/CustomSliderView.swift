@@ -34,7 +34,7 @@ class CustomSliderView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let tickMarkView = UIView()
 
     override init(frame: CGRect) {
@@ -62,7 +62,7 @@ class CustomSliderView: UIView {
             slider.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: 5),
             slider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             slider.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            
+
             tickMarkView.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: 0),
             tickMarkView.leadingAnchor.constraint(equalTo: slider.leadingAnchor),
             tickMarkView.trailingAnchor.constraint(equalTo: slider.trailingAnchor),
@@ -81,7 +81,7 @@ class CustomSliderView: UIView {
     private func sendValueChangedAction() {
         delegate?.sliderValueChanged(to: slider.value)
     }
-    
+
     private func updateValueLabel(value: Float) {
         valueLabel.text = String(format: "%.0f", value)
     }
@@ -92,10 +92,10 @@ class CustomSliderView: UIView {
     }
 
     private func drawTickMarks() {
-        tickMarkView.layer.sublayers?.forEach { $0.removeFromSuperlayer() } // Clear old ticks
+        tickMarkView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
 
         let trackRect = slider.trackRect(forBounds: slider.bounds)
-        let tickStartY = slider.frame.height / 2 + 5 // Start ticks below the slider thumb path
+        let tickStartY = slider.frame.height / 2 + 5
 
         let majorTickInterval: Float = 20
         let minValue: Float = -100
@@ -105,12 +105,12 @@ class CustomSliderView: UIView {
         for i in 0...Int(totalRange) {
             let value = minValue + Float(i)
             let isMajorTick = Int(value) % Int(majorTickInterval) == 0
-            
-            let xPosition = (CGFloat((value - minValue) / totalRange) * slider.frame.width) 
+
+            let xPosition = (CGFloat((value - minValue) / totalRange) * slider.frame.width)
 
             let tickPath = UIBezierPath()
             tickPath.move(to: CGPoint(x: xPosition, y: tickStartY))
-            
+
             let tickLayer = CAShapeLayer()
             tickLayer.strokeColor = UIColor.gray.cgColor
             tickLayer.lineWidth = 1
@@ -118,15 +118,15 @@ class CustomSliderView: UIView {
             if isMajorTick {
                 tickPath.addLine(to: CGPoint(x: xPosition, y: tickStartY + 10))
                 tickLayer.lineWidth = 2
-                
+
                 let label = UILabel()
                 label.font = UIFont.systemFont(ofSize: 10)
                 label.text = "\(Int(value))"
                 label.textAlignment = .center
                 label.sizeToFit()
-                // Adjust label position to be centered on the tick
+
                 let labelX = xPosition - (label.frame.width / 2)
-                // Ensure label doesn't go out of bounds
+
                 let constrainedLabelX = max(0, min(labelX, slider.frame.width - label.frame.width))
                 label.frame = CGRect(x: constrainedLabelX, y: tickStartY + 12, width: label.frame.width, height: label.frame.height)
                 tickMarkView.addSubview(label)
@@ -137,8 +137,7 @@ class CustomSliderView: UIView {
             tickMarkView.layer.addSublayer(tickLayer)
         }
     }
-    
-    // Call setNeedsDisplay when bounds change to redraw ticks if view is resized
+
     override var bounds: CGRect {
         didSet {
             if oldValue.size != bounds.size {

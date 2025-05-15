@@ -1,5 +1,5 @@
-import UIKit
 import PhotosUI
+import UIKit
 
 class SliderDemoViewController: UIViewController, CustomSliderViewDelegate, PHPickerViewControllerDelegate {
 
@@ -73,23 +73,21 @@ class SliderDemoViewController: UIViewController, CustomSliderViewDelegate, PHPi
             addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
             addImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            // Slider and its control buttons at the bottom
             customSliderView.leadingAnchor.constraint(equalTo: decrementButton.trailingAnchor, constant: 10),
             customSliderView.trailingAnchor.constraint(equalTo: incrementButton.leadingAnchor, constant: -10),
             customSliderView.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -20),
             customSliderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            decrementButton.centerYAnchor.constraint(equalTo: customSliderView.centerYAnchor, constant: -10), // Adjust vertical alignment with slider center
+
+            decrementButton.centerYAnchor.constraint(equalTo: customSliderView.centerYAnchor, constant: -10),
             decrementButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             decrementButton.widthAnchor.constraint(equalToConstant: 44),
             decrementButton.heightAnchor.constraint(equalToConstant: 44),
 
-            incrementButton.centerYAnchor.constraint(equalTo: customSliderView.centerYAnchor, constant: -10), // Adjust vertical alignment with slider center
+            incrementButton.centerYAnchor.constraint(equalTo: customSliderView.centerYAnchor, constant: -10),
             incrementButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             incrementButton.widthAnchor.constraint(equalToConstant: 44),
             incrementButton.heightAnchor.constraint(equalToConstant: 44),
-            
-            // Ensure slider has some intrinsic width if not constrained by +/-
+
             customSliderView.widthAnchor.constraint(greaterThanOrEqualToConstant: 150),
 
             backButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
@@ -126,10 +124,10 @@ class SliderDemoViewController: UIViewController, CustomSliderViewDelegate, PHPi
     @objc private func decrementSlider() {
         let newValue = max(customSliderView.value - 1, -100)
         customSliderView.value = newValue
-        // Delegate method will handle rotation
     }
 
     // MARK: - CustomSliderViewDelegate
+
     func sliderValueChanged(to value: Float) {
         let angle = CGFloat(value) * .pi / 180.0 // Convert degrees to radians
         UIView.animate(withDuration: 0.1) {
@@ -138,6 +136,7 @@ class SliderDemoViewController: UIViewController, CustomSliderViewDelegate, PHPi
     }
 
     // MARK: - PHPickerViewControllerDelegate
+
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         dismiss(animated: true)
         guard let provider = results.first?.itemProvider else { return }
@@ -146,12 +145,10 @@ class SliderDemoViewController: UIViewController, CustomSliderViewDelegate, PHPi
                 DispatchQueue.main.async {
                     if let image = image as? UIImage {
                         self?.imageView.image = image
-                        // Reset rotation when a new image is selected
-                        self?.customSliderView.value = 0 
-                        self?.imageView.transform = .identity 
+                        self?.customSliderView.value = 0
+                        self?.imageView.transform = .identity
                     } else if let error = error {
                         print("Error loading image: \(error.localizedDescription)")
-                        // Optionally, show an alert to the user
                     }
                 }
             }

@@ -56,13 +56,13 @@ class MainViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(toSettingsButton)
         view.addSubview(toSliderDemoButton)
-        
+
         let switchStackView = UIStackView(arrangedSubviews: [testSwitchLabel, testSwitch])
         switchStackView.axis = .horizontal
         switchStackView.spacing = 8
         switchStackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(switchStackView)
-        
+
         view.addSubview(demoLabel)
 
         NSLayoutConstraint.activate([
@@ -74,7 +74,7 @@ class MainViewController: UIViewController {
 
             toSliderDemoButton.topAnchor.constraint(equalTo: toSettingsButton.bottomAnchor, constant: 20),
             toSliderDemoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
+
             switchStackView.topAnchor.constraint(equalTo: toSliderDemoButton.bottomAnchor, constant: 30),
             switchStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
@@ -98,9 +98,8 @@ class MainViewController: UIViewController {
         let sliderDemoVC = SliderDemoViewController()
         navigationController?.pushViewController(sliderDemoVC, animated: true)
     }
-    
+
     @objc private func switchValueChanged(_ sender: UISwitch) {
         print("Test switch is now: \(sender.isOn ? "ON" : "OFF")")
-        // Logic for switch state change if needed for testing UI coverage
     }
 }
