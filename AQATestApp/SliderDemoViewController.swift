@@ -8,8 +8,7 @@ class SliderDemoViewController: UIViewController, CustomSliderViewDelegate, PHPi
         imgView.contentMode = .scaleAspectFit
         imgView.backgroundColor = .clear
         imgView.translatesAutoresizingMaskIntoConstraints = false
-        // Temporary image for layout purposes
-        if let catImage = UIImage(systemName: "photo.fill") { // Using a generic photo icon
+        if let catImage = UIImage(systemName: "photo.fill") { 
             imgView.image = catImage.withTintColor(.systemGray, renderingMode: .alwaysOriginal)
         }
         return imgView
@@ -85,7 +84,6 @@ class SliderDemoViewController: UIViewController, CustomSliderViewDelegate, PHPi
         setupActions()
         customSliderView.delegate = self
         if imageView.image == UIImage(systemName: "photo.fill")?.withTintColor(.systemGray, renderingMode: .alwaysOriginal) {
-             // Prompt to pick an image if it's still the placeholder
         }
     }
 
@@ -120,7 +118,6 @@ class SliderDemoViewController: UIViewController, CustomSliderViewDelegate, PHPi
             addImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
             addImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            // customSliderView and its increment/decrement buttons
             decrementButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             decrementButton.centerYAnchor.constraint(equalTo: customSliderView.centerYAnchor),
             decrementButton.widthAnchor.constraint(equalToConstant: buttonWidth),
@@ -185,22 +182,19 @@ class SliderDemoViewController: UIViewController, CustomSliderViewDelegate, PHPi
 
     @objc private func confirmAction() {
         print("Confirm button tapped - Rotation: \(customSliderView.value)")
-        // Action for confirming the rotation, e.g., pass the rotated image or settings
     }
 
     @objc private func decrementSliderValue() {
-        let stepValue: Float = 1.0 // Or 5.0 for larger steps
+        let stepValue: Float = 1.0
         let newValue = customSliderView.value - stepValue
-        customSliderView.value = max(customSliderView.slider.minimumValue, newValue) // Ensure not going below min
+        customSliderView.value = max(customSliderView.minimumValue, newValue)
     }
 
     @objc private func incrementSliderValue() {
-        let stepValue: Float = 1.0 // Or 5.0 for larger steps
+        let stepValue: Float = 1.0
         let newValue = customSliderView.value + stepValue
-        customSliderView.value = min(customSliderView.slider.maximumValue, newValue) // Ensure not going above max
+        customSliderView.value = min(customSliderView.maximumValue, newValue)
     }
-
-    // MARK: - CustomSliderViewDelegate
 
     func sliderValueChanged(to value: Float) {
         let angle = CGFloat(value) * .pi / 180.0
@@ -208,8 +202,6 @@ class SliderDemoViewController: UIViewController, CustomSliderViewDelegate, PHPi
             self.imageView.transform = CGAffineTransform(rotationAngle: angle)
         }
     }
-
-    // MARK: - PHPickerViewControllerDelegate
 
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         dismiss(animated: true)

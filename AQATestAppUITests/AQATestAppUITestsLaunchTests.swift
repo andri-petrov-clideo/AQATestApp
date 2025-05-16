@@ -1,10 +1,3 @@
-//
-//  AQATestAppUITestsLaunchTests.swift
-//  AQATestAppUITests
-//
-//  Created by Andrii Petrov on 15/05/2025.
-//
-
 import XCTest
 
 final class AQATestAppUITestsLaunchTests: XCTestCase {
@@ -21,9 +14,6 @@ final class AQATestAppUITestsLaunchTests: XCTestCase {
     func testLaunch() throws {
         let app = XCUIApplication()
         app.launch()
-
-        // Insert steps here to perform after app launch but before taking a screenshot,
-        // such as logging into a test account or navigating somewhere in the app
 
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = "Launch Screen"
